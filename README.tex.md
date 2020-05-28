@@ -1,6 +1,21 @@
 # About
 
-Readme
+This repository was used to analyze the behavior of four optimization methods (using torch):
+
+- Stochastic Gradient Descent (SGD)
+- Adaptive Gradient Algorithm (AdaGrad)
+- Root Mean Square Propagation (RMSProp)
+- Adaptive Moment Estimation (Adam)
+
+ Please see my conclusions in the report below
+
+### How to use
+
+Simply run `main.py` . It will create one or multiple images like the ones shown in the report below.
+
+### Credits
+
+The latex rendering in the report below was performed automatically using the [TeXify Github App](https://github.com/agurodriguez/github-texify). See discussion on https://stackoverflow.com/questions/35498525/latex-rendering-in-readme-md-on-github .
 
 # Report
 
@@ -34,7 +49,7 @@ For example, in the image below the loss function is a simple linear function $l
 
 AdaGrad is defined as followed
 $$
-v(t)=\sum_{\tau=0}^{t-1} \left( \partial_x l(\tau) \right)^2
+v(t)=\sum_{\tau=0}^{t-1} \left( \partial_x l(\tau) \right)^2 \\
 \\
 dx(t) = -\frac{1}{\sqrt{v(t) }} \eta\partial_x l(t)
 $$
@@ -47,7 +62,7 @@ One characteristic of AdaGrad is that the step size reduces over time, since the
 
 A second characteristic of AdaGrad is that it is robust against scaling of the loss function, meaning the step size does not change if we scale the loss function with any constant. This can be very easily seen if the gradient  $\partial_x l(t)\approx k$ is approximately constant over time. Then, the equation simplifies to 
 $$
-v(t)=\sum_{\tau=0}^{t-1} \left( \partial_x l(\tau) \right)^2 \approx \sum_{\tau=0}^{t-1} k^2 = t\cdot k^2
+v(t)=\sum_{\tau=0}^{t-1} \left( \partial_x l(\tau) \right)^2 \approx \sum_{\tau=0}^{t-1} k^2 = t\cdot k^2 \\
 \\
 dx(t) = -\frac{1}{\sqrt{v(t) }} \eta\partial_x l(t) \approx -\frac{1}{\sqrt{t}|k|}\eta k = -\frac{1}{\sqrt{t}}\eta sign(k)
 $$
