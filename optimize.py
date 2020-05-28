@@ -14,7 +14,7 @@ def optimize(loss_func,
     optim = optimizer([x], **optimizer_kwargs)
 
     # run optimization
-    result = []
+    xs, losses = [], []
     for cnt in tqdm.trange(nsteps_max):
         # calc loss
         loss = loss_func(x)
@@ -25,24 +25,25 @@ def optimize(loss_func,
 
         # print status
         # if cnt % 100 == 0: print("cnt={}, x={}, loss={}".format(cnt, x.item(), loss.item()))
-        result.append((x.item(), loss.item()))
+        xs.append(x.item())
+        losses.append(loss.item())
 
         # perform optimization
         loss.backward()  # computes x.grad += dloss/dx for all parameters x
         optim.step()  # updates values x += -lr * x.grad
         optim.zero_grad()  # set x.grad = 0, for next iteration. Throws error if active?!
-    return result
+    return xs, losses
 
 
 if __name__ == '__main__':
     loss_func = lambda x: x.pow(2)
-    result = optimize(loss_func,
-                      optimizer=torch.optim.RMSprop,
-                      optimizer_kwargs={'lr': 0.001},
-                      # loss_func=cost_func_torch.cost,
-                      x_start=-5,
-                      )
+    xs, losses = optimize(loss_func,
+                          optimizer=torch.optim.RMSprop,
+                          optimizer_kwargs={'lr': 0.001},
+                          # loss_func=cost_func_torch.cost,
+                          x_start=-5,
+                          )
 
-    len(result)
+    len(xs)
 
     print("===Finished")

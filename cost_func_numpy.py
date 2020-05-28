@@ -15,7 +15,7 @@ def line(x):
 
 
 def cost(x):
-    left = -gauss(x, 0, 5) - 0.27*gauss(x,-5,1)
+    left = -gauss(x, 0, 5) - 0.20*gauss(x,-5,1)
     right = line(x)
 
     y = np.empty_like(x)

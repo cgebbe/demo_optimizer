@@ -16,7 +16,7 @@ def line(x):
 
 def cost(x):
     if x < 0:
-        return 1 - gauss(x, 0, 5) - 0.27 * gauss(x, -5, 1)
+        return 1 - gauss(x, 0, 5) - 0.19 * gauss(x, -5, 1)
     else:
         return line(x)
 
