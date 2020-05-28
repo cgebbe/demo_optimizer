@@ -3,7 +3,8 @@ import tqdm
 
 
 def optimize(loss_func,
-             loss_eps=1E-3,
+             loss_eps=5E-3,
+             loss_target=0,
              x_start=-5,
              optimizer=torch.optim.Adam,
              optimizer_kwargs=dict(),
@@ -15,11 +16,10 @@ def optimize(loss_func,
 
     # run optimization
     xs, losses = [], []
+    loss_last = 0
     for cnt in tqdm.trange(nsteps_max):
         # calc loss
         loss = loss_func(x)
-        loss_target = 0
-        loss_eps = loss_eps
         if torch.abs(loss - loss_target) < loss_eps:
             break
 

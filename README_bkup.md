@@ -8,12 +8,12 @@ Readme
 
 We use the following notation:
 
-- $dx(t)$ step at time t . Used for calculating $x(t+1) = x(t) + dx(t)$
+- $dx(t)$ step size at time t . Used for calculating next parameter $x(t+1) = x(t) + dx(t)$
 - $l(t) =l(x(t))$ = loss at time t
 - $\partial_x l(t) = \frac{\partial}{\partial x} l(x(t))$ = derivative of loss with respect to x (at time t)
 - $\eta$= learning rate (constant parameter set by user)
 
-Note that we only consider a one-dimensional (scalar) parameter $x$ in order to simplify the discussion and visualization.
+Note that we only consider a one-dimensional scalar value $x$ for simplifying the issue and bringing points across more easily.
 
 ### Stochastic Gradient Descent (SGD)
 
@@ -63,20 +63,22 @@ A third very important characteristic of AdaGrad is that the denominator $v(t)$ 
 
 RMSProp can be defined as followed
 $$
-v(t) = \alpha v(t-1) + (1-\alpha)(\partial_x l(t))^2 \quad \text{ with } \alpha\in[0,1] 
+v(t) = \alpha v(t-1) + (1-\alpha)(\partial_x l(t))^2
 \\
 dx(t) = -\frac{1}{\sqrt{v(t)}}\eta\partial_x l(t)
 $$
 
-Similarly to AdaGrad, the step size is divided by a denominator. Contrary to AdaGrad, this denominator is not the cumulative sum which only increases, but instead an [exponential moving average](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average) of the squared gradients. Therefore, the step size does not continually decrease like in Adagrad, but is rather approximately constant for a linear slope, see image below.
+Similarly to AdaGrad, denominator dampens step size. Contrary to AdaGrad, denominator does not only increase, but is simply a running [(exponential) moving average](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average) of gradients, instead of a cumulative sum. Therefore, the step size does not continually decrease like in Adagrad, but is rather approximately constant for a linear slope, see image below.
 
 ![](output/rmsprop_slope1.png)
 
-Similar to AdaGrad, if $\partial_xl(t)=k$ is constant, we get  $v(t)\rightarrow k^2$ and thus  $dx=-\eta sign(k)$, implying robustness against scaling of the loss function as shown in the image below
+Similar to AdaGrad, if $\partial_xl(t)=k$ is constant, we get  $v(t)\rightarrow k^2$ and thus  $dx=-\eta sign(k)$, implying robustness against scaling of the loss function as show in the image below
 
 ![](output/rmsprop_slope0.5.png)
 
-The approximately constant step size is a very desired property in case of saddle points, where the gradient becomes very small. SGD will spent a lot of time on such saddle points, while RMSProp is able to overcome them quickly, see image below. The slope in the saddle is only $0.1$ compared to a slope of $1$ everywhere else.
+
+
+The approximately constant step size is a very desired property in case of saddle points, where the gradient becomes very small. SGD will spent a lot of time on such a saddle point, while RMSProp is able to overcome them quickly, see image below. The slope in the saddle is only $0.1$ and $1$ everywhere else.
 
 ![](output/rmsprop_saddle.png)
 
@@ -88,31 +90,15 @@ A closeup of the saddle point (see image below) reveals, that the step size in R
 
 ### Adaptive Moment Estimation (Adam)
 
-Adam uses the same denominator $v(t)$ as RMSProp, but multiplied with the bias correction term $1/(1-\alpha^t)$ . Moreover, it also employs an exponential moving average of the gradient $\partial_x l(t)$. 
+Adam uses the same denominator $v(t)$ as RMSProp, but multiplied with a
 $$
-v(t)= \frac{1}{1-\alpha^t} \cdot \left[\alpha v(t-1) + (1-\alpha) \left( \partial_x l(t) \right)^2 \right] \quad \text{ with } \alpha\in[0,1]
+v(t)= \frac{1}{1-\alpha^t} \cdot \left[\alpha v(t-1) + (1-\alpha) \left( \partial_x l(t) \right)^2 \right] = E[(\partial_x l(t))^2]
 \\
-g(t) = \frac{1}{1-\beta^t} \cdot \left[ \beta g(t-1) + (1-\beta)\partial_x l(t) \right]  \quad \text{ with } \beta\in[0,1]
+g(t) = \frac{1}{1-\beta^t} \cdot \left[ \beta g(t-1) + (1-\beta)\partial_x l(t) \right] = E[\partial_x l(t)]
 \\
 dx(t) = -\frac{1}{\sqrt{v(t)}}\eta g(t)
 $$
 
-Similar to RMSprop, the step size is robust to a scaling of the loss function and approximately constant for a  linear slope. In fact, for a linear slope, Adam's step is exactly constant and exactly equals SGD's step for slope $1.0$ (see image below). While RMSprop's needs a slow ramp-up phase (the first ~50 steps) to reach a constant step size, Adam's step size is constant from the beginning. This is exactly the effect of the bias correction terms $1/(1-\alpha^t)$ and $1/(1-\beta^t)$. It prevents the ramp-up phase visible for RMSProp and thus accelerates the optimization process.
+, where $\alpha\in[0,1]$ and $\beta\in[0,1]$ .
 
-![](output/adam_slope1.png)
-
-![](output/adam_slope0.5.png)
-
-The behavior in saddle points is also very similar to RMSProp. Adam's exact behavior depend a lot on the parameters $\alpha$ and $\beta$, so the images below show two different settings.
-
-![](output/adam_saddle1.png)
-
-![](output/adam_saddle2.png)
-
-The most important difference compared to RMSProp can be seen in case of local minima (around $x=2.17$ in the image below). SGD, Adagrad and RMSProp will get stuck in such local minima. In contrast, Adam is able to overcome those (up to a certain degree). 
-
-![](output/adam_spike.png)
-![](output/adam_spike_detail.png)
-
-There is a variant of RMSProp called RMSProp with momentum, which is also able to overcome local minima. A detailed comparison between RMSProp with momentum and Adam is presented in the following thread: https://datascience.stackexchange.com/questions/26792/difference-between-rmsprop-with-momentum-and-adam-optimizers/39224
-
+Adam has similar properties to RMSProp with momentum. You will find more information in the following thread: https://datascience.stackexchange.com/questions/26792/difference-between-rmsprop-with-momentum-and-adam-optimizers/39224
