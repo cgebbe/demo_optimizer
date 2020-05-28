@@ -15,7 +15,10 @@ Simply run `main.py` . It will create one or multiple images like the ones shown
 
 ### Credits
 
-The latex rendering in the report below was performed automatically using the [TeXify Github App](https://github.com/agurodriguez/github-texify). See discussion on https://stackoverflow.com/questions/35498525/latex-rendering-in-readme-md-on-github .
+Writing latex in Markdown files is not straightforward. Therefore, credits to two tools having helped with that:
+
+- [Typora editor](https://typora.io/)
+-  [TeXify Github App](https://github.com/agurodriguez/github-texify), which automatically converts any latex strings to an svg image upon pushing. See discussion on https://stackoverflow.com/questions/35498525/latex-rendering-in-readme-md-on-github .
 
 # Report
 
@@ -49,8 +52,10 @@ For example, in the image below the loss function is a simple linear function $l
 
 AdaGrad is defined as followed
 $$
-v(t)=\sum_{\tau=0}^{t-1} \left( \partial_x l(\tau) \right)^2 \\
-\\
+v(t)=\sum_{\tau=0}^{t-1} \left( \partial_x l(\tau) \right)^2
+$$
+
+$$
 dx(t) = -\frac{1}{\sqrt{v(t) }} \eta\partial_x l(t)
 $$
 
@@ -62,8 +67,10 @@ One characteristic of AdaGrad is that the step size reduces over time, since the
 
 A second characteristic of AdaGrad is that it is robust against scaling of the loss function, meaning the step size does not change if we scale the loss function with any constant. This can be very easily seen if the gradient  $\partial_x l(t)\approx k$ is approximately constant over time. Then, the equation simplifies to 
 $$
-v(t)=\sum_{\tau=0}^{t-1} \left( \partial_x l(\tau) \right)^2 \approx \sum_{\tau=0}^{t-1} k^2 = t\cdot k^2 \\
-\\
+v(t)=\sum_{\tau=0}^{t-1} \left( \partial_x l(\tau) \right)^2 \approx \sum_{\tau=0}^{t-1} k^2 = t\cdot k^2
+$$
+
+$$
 dx(t) = -\frac{1}{\sqrt{v(t) }} \eta\partial_x l(t) \approx -\frac{1}{\sqrt{t}|k|}\eta k = -\frac{1}{\sqrt{t}}\eta sign(k)
 $$
 which shows that the step size is independent of the loss function! The image below shows again a linear line but this time with slope $0.5$ instead of $1.0$.  While SGD now takes twice as long to find the minimum, AdaGrad isn't affected by the scaling at all (compare with image above).
@@ -78,8 +85,10 @@ A third very important characteristic of AdaGrad is that the denominator $v(t)$ 
 
 RMSProp can be defined as followed
 $$
-v(t) = \alpha v(t-1) + (1-\alpha)(\partial_x l(t))^2 \quad \text{ with } \alpha\in[0,1] 
-\\
+v(t) = \alpha v(t-1) + (1-\alpha)(\partial_x l(t))^2 \quad \text{ with } \alpha\in[0,1]
+$$
+
+$$
 dx(t) = -\frac{1}{\sqrt{v(t)}}\eta\partial_x l(t)
 $$
 
@@ -106,9 +115,13 @@ A closeup of the saddle point (see image below) reveals, that the step size in R
 Adam uses the same denominator $v(t)$ as RMSProp, but multiplied with the bias correction term $1/(1-\alpha^t)$ . Moreover, it also employs an exponential moving average of the gradient $\partial_x l(t)$. 
 $$
 v(t)= \frac{1}{1-\alpha^t} \cdot \left[\alpha v(t-1) + (1-\alpha) \left( \partial_x l(t) \right)^2 \right] \quad \text{ with } \alpha\in[0,1]
-\\
+$$
+
+$$
 g(t) = \frac{1}{1-\beta^t} \cdot \left[ \beta g(t-1) + (1-\beta)\partial_x l(t) \right]  \quad \text{ with } \beta\in[0,1]
-\\
+$$
+
+$$
 dx(t) = -\frac{1}{\sqrt{v(t)}}\eta g(t)
 $$
 
