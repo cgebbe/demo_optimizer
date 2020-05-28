@@ -7,7 +7,7 @@ This repository was used to analyze the behavior of four optimization methods (u
 - Root Mean Square Propagation (RMSProp)
 - Adaptive Moment Estimation (Adam)
 
- Please see my conclusions in the report below
+ Please see my conclusions in the report below.
 
 ### How to use
 
@@ -63,6 +63,7 @@ A second characteristic of AdaGrad is that it is robust against scaling of the l
 <p align="center"><img src="/tex/b407df9e8fa233804afd085ce78e21db.svg?invert_in_darkmode&sanitize=true" align=middle width=260.69346929999995pt height=47.159971649999996pt/></p>
 
 <p align="center"><img src="/tex/8fa3b4e6b28dc16a9317e431924e275c.svg?invert_in_darkmode&sanitize=true" align=middle width=383.623515pt height=40.289634pt/></p>
+
 which shows that the step size is independent of the loss function! The image below shows again a linear line but this time with slope <img src="/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> instead of <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/>.  While SGD now takes twice as long to find the minimum, AdaGrad isn't affected by the scaling at all (compare with image above).
 
 ![](output/adagrad_slope0.5.png)
