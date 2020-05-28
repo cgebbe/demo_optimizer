@@ -15,7 +15,10 @@ Simply run `main.py` . It will create one or multiple images like the ones shown
 
 ### Credits
 
-The latex rendering in the report below was performed automatically using the [TeXify Github App](https://github.com/agurodriguez/github-texify). See discussion on https://stackoverflow.com/questions/35498525/latex-rendering-in-readme-md-on-github .
+Writing latex in Markdown files is not straightforward. Therefore, credits to two tools having helped with that:
+
+- [Typora editor](https://typora.io/)
+-  [TeXify Github App](https://github.com/agurodriguez/github-texify), which automatically converts any latex strings to an svg image upon pushing. See discussion on https://stackoverflow.com/questions/35498525/latex-rendering-in-readme-md-on-github .
 
 # Report
 
@@ -46,7 +49,9 @@ For example, in the image below the loss function is a simple linear function <i
 ### Adaptive Gradient algorithm (AdaGrad)
 
 AdaGrad is defined as followed
-<p align="center"><img src="/tex/ef7666e978b835c56874e52557801744.svg?invert_in_darkmode&sanitize=true" align=middle width=311.68003515pt height=47.159971649999996pt/></p>
+<p align="center"><img src="/tex/e10b996a5a2485bbdb708f6fc5274fea.svg?invert_in_darkmode&sanitize=true" align=middle width=139.37474595pt height=47.159971649999996pt/></p>
+
+<p align="center"><img src="/tex/80da70041800690adad0c4fc262250f0.svg?invert_in_darkmode&sanitize=true" align=middle width=168.74371635pt height=40.289634pt/></p>
 
 One characteristic of AdaGrad is that the step size reduces over time, since the denominator will only increase over time. This dampening effect can be seen in the image below. Such a damping may make sense for convex problems where we want to start off with large step sizes and take smaller steps once we reach the optimum. For nonconvex problems, this dampening is likely undesired.
 
@@ -55,7 +60,9 @@ One characteristic of AdaGrad is that the step size reduces over time, since the
 
 
 A second characteristic of AdaGrad is that it is robust against scaling of the loss function, meaning the step size does not change if we scale the loss function with any constant. This can be very easily seen if the gradient  <img src="/tex/69f2628ce4607679bd5bae562f575c1a.svg?invert_in_darkmode&sanitize=true" align=middle width=71.94632775pt height=24.65753399999998pt/> is approximately constant over time. Then, the equation simplifies to 
-<p align="center"><img src="/tex/bf878e5e434eead3954bf4083c2310b8.svg?invert_in_darkmode&sanitize=true" align=middle width=645.1388971499999pt height=47.159971649999996pt/></p>
+<p align="center"><img src="/tex/b407df9e8fa233804afd085ce78e21db.svg?invert_in_darkmode&sanitize=true" align=middle width=260.69346929999995pt height=47.159971649999996pt/></p>
+
+<p align="center"><img src="/tex/8fa3b4e6b28dc16a9317e431924e275c.svg?invert_in_darkmode&sanitize=true" align=middle width=383.623515pt height=40.289634pt/></p>
 which shows that the step size is independent of the loss function! The image below shows again a linear line but this time with slope <img src="/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> instead of <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/>.  While SGD now takes twice as long to find the minimum, AdaGrad isn't affected by the scaling at all (compare with image above).
 
 ![](output/adagrad_slope0.5.png)
@@ -67,7 +74,9 @@ A third very important characteristic of AdaGrad is that the denominator <img sr
 ### Root Mean Square Propagation (RMSProp)
 
 RMSProp can be defined as followed
-<p align="center"><img src="/tex/37d58bdb931f6703be8f7e8d1715a67c.svg?invert_in_darkmode&sanitize=true" align=middle width=539.8889331pt height=40.289634pt/></p>
+<p align="center"><img src="/tex/db669180b8af608025c6131d91b90af8.svg?invert_in_darkmode&sanitize=true" align=middle width=371.14521675pt height=18.312383099999998pt/></p>
+
+<p align="center"><img src="/tex/9538cbb7341e3f77f58d01985ad7da4a.svg?invert_in_darkmode&sanitize=true" align=middle width=168.74371635pt height=40.289634pt/></p>
 
 Similarly to AdaGrad, the step size is divided by a denominator. Contrary to AdaGrad, this denominator is not the cumulative sum which only increases, but instead an [exponential moving average](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average) of the squared gradients. Therefore, the step size does not continually decrease like in Adagrad, but is rather approximately constant for a linear slope, see image below.
 
@@ -90,7 +99,11 @@ A closeup of the saddle point (see image below) reveals, that the step size in R
 ### Adaptive Moment Estimation (Adam)
 
 Adam uses the same denominator <img src="/tex/54805a5029573dca787fb13c27b5b2b3.svg?invert_in_darkmode&sanitize=true" align=middle width=27.27937244999999pt height=24.65753399999998pt/> as RMSProp, but multiplied with the bias correction term <img src="/tex/8e4f6c1a8bd9a189db9af235bf9c0c2c.svg?invert_in_darkmode&sanitize=true" align=middle width=73.89843945pt height=26.085962100000025pt/> . Moreover, it also employs an exponential moving average of the gradient <img src="/tex/7b962d58a293d91a4f9619e9c97ca4f2.svg?invert_in_darkmode&sanitize=true" align=middle width=40.95332834999999pt height=24.65753399999998pt/>. 
-<p align="center"><img src="/tex/b09fa03f77a7b6d7356f59e0a9b81648.svg?invert_in_darkmode&sanitize=true" align=middle width=1014.4222539pt height=40.289634pt/></p>
+<p align="center"><img src="/tex/a00f235177416a9bc043067ca9a7fec3.svg?invert_in_darkmode&sanitize=true" align=middle width=452.64129899999995pt height=34.3600389pt/></p>
+
+<p align="center"><img src="/tex/d5d55977f01463ad7d15a294a1623ef4.svg?invert_in_darkmode&sanitize=true" align=middle width=421.45019235pt height=36.1865163pt/></p>
+
+<p align="center"><img src="/tex/8714a1b21e3e82173ae1e5595e4a8117.svg?invert_in_darkmode&sanitize=true" align=middle width=154.9422765pt height=40.289634pt/></p>
 
 Similar to RMSprop, the step size is robust to a scaling of the loss function and approximately constant for a  linear slope. In fact, for a linear slope, Adam's step is exactly constant and exactly equals SGD's step for slope <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> (see image below). While RMSprop's needs a slow ramp-up phase (the first ~50 steps) to reach a constant step size, Adam's step size is constant from the beginning. This is exactly the effect of the bias correction terms <img src="/tex/8e4f6c1a8bd9a189db9af235bf9c0c2c.svg?invert_in_darkmode&sanitize=true" align=middle width=73.89843945pt height=26.085962100000025pt/> and <img src="/tex/4cab8f6a451bbd79a085f44f77df7773.svg?invert_in_darkmode&sanitize=true" align=middle width=73.48747394999998pt height=26.085962100000025pt/>. It prevents the ramp-up phase visible for RMSProp and thus accelerates the optimization process.
 
