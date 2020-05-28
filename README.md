@@ -1,6 +1,21 @@
 # About
 
-Readme
+This repository was used to analyze the behavior of four optimization methods (using torch):
+
+- Stochastic Gradient Descent (SGD)
+- Adaptive Gradient Algorithm (AdaGrad)
+- Root Mean Square Propagation (RMSProp)
+- Adaptive Moment Estimation (Adam)
+
+ Please see my conclusions in the report below
+
+### How to use
+
+Simply run `main.py` . It will create one or multiple images like the ones shown in the report below.
+
+### Credits
+
+The latex rendering in the report below was performed automatically using the [TeXify Github App](https://github.com/agurodriguez/github-texify). See discussion on https://stackoverflow.com/questions/35498525/latex-rendering-in-readme-md-on-github .
 
 # Report
 
@@ -31,7 +46,7 @@ For example, in the image below the loss function is a simple linear function <i
 ### Adaptive Gradient algorithm (AdaGrad)
 
 AdaGrad is defined as followed
-<p align="center"><img src="/tex/5afe88b3d0a801e1eb26acbbe93d4064.svg?invert_in_darkmode&sanitize=true" align=middle width=311.68003515pt height=47.159971649999996pt/></p>
+<p align="center"><img src="/tex/ef7666e978b835c56874e52557801744.svg?invert_in_darkmode&sanitize=true" align=middle width=311.68003515pt height=47.159971649999996pt/></p>
 
 One characteristic of AdaGrad is that the step size reduces over time, since the denominator will only increase over time. This dampening effect can be seen in the image below. Such a damping may make sense for convex problems where we want to start off with large step sizes and take smaller steps once we reach the optimum. For nonconvex problems, this dampening is likely undesired.
 
@@ -40,7 +55,7 @@ One characteristic of AdaGrad is that the step size reduces over time, since the
 
 
 A second characteristic of AdaGrad is that it is robust against scaling of the loss function, meaning the step size does not change if we scale the loss function with any constant. This can be very easily seen if the gradient  <img src="/tex/69f2628ce4607679bd5bae562f575c1a.svg?invert_in_darkmode&sanitize=true" align=middle width=71.94632775pt height=24.65753399999998pt/> is approximately constant over time. Then, the equation simplifies to 
-<p align="center"><img src="/tex/4a4821c448141be272281b8d4234d890.svg?invert_in_darkmode&sanitize=true" align=middle width=645.1388971499999pt height=47.159971649999996pt/></p>
+<p align="center"><img src="/tex/bf878e5e434eead3954bf4083c2310b8.svg?invert_in_darkmode&sanitize=true" align=middle width=645.1388971499999pt height=47.159971649999996pt/></p>
 which shows that the step size is independent of the loss function! The image below shows again a linear line but this time with slope <img src="/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> instead of <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/>.  While SGD now takes twice as long to find the minimum, AdaGrad isn't affected by the scaling at all (compare with image above).
 
 ![](output/adagrad_slope0.5.png)
