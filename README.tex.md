@@ -7,7 +7,7 @@ This repository was used to analyze the behavior of four optimization methods (u
 - Root Mean Square Propagation (RMSProp)
 - Adaptive Moment Estimation (Adam)
 
- Please see my conclusions in the report below
+ Please see my conclusions in the report below.
 
 ### How to use
 
@@ -73,6 +73,7 @@ $$
 $$
 dx(t) = -\frac{1}{\sqrt{v(t) }} \eta\partial_x l(t) \approx -\frac{1}{\sqrt{t}|k|}\eta k = -\frac{1}{\sqrt{t}}\eta sign(k)
 $$
+
 which shows that the step size is independent of the loss function! The image below shows again a linear line but this time with slope $0.5$ instead of $1.0$.  While SGD now takes twice as long to find the minimum, AdaGrad isn't affected by the scaling at all (compare with image above).
 
 ![](output/adagrad_slope0.5.png)
